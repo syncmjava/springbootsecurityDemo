@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auto.myte.mapper.ReceiptInfoMapper">
+
+	<select id="selectAll" resultType="com.auto.myte.entity.ReceiptInfo">
+		select ri.id
+		,c.category_name
+		,ri.amount
+		,ri.date
+		,ri.name
+		from receipt_info ri, category c
+		where ri.category_id = c.category_id
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultType="com.auto.myte.entity.ReceiptInfo">
+		select ri.id
+		,c.category_id
+		,ri.amount
+		,ri.date
+		,ri.name
+		,ri.eid
+		,ri.image_name
+		from receipt_info ri, category c
+		where ri.category_id = c.category_id
+		and ri.id = #{id}
+	</select>
+
+	<insert id="insertReceiptInfo" parameterType="com.auto.myte.entity.ReceiptInfo">
+		insert into
+		receipt_info
+		(category_id, amount, date, name, eid, image_name)
+		values(
+		#{category_id,jdbcType=VARCHAR},
+		#{amount,jdbcType=VARCHAR},
+		#{date,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{eid,jdbcType=VARCHAR},
+		#{image_name,jdbcType=VARCHAR});
+	</insert>
+
+
+	<update id="updateReceiptInfoByKey" parameterType="com.auto.myte.entity.ReceiptInfo">
+		update
+		receipt_info
+		set category_id = #{category_id,jdbcType=VARCHAR},
+		amount =
+		#{amount,jdbcType=VARCHAR},
+		date = #{date,jdbcType=VARCHAR},
+		name =
+		#{name,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auto.myte.mapper.PermissionMapper">
+
+	<select id="findAll" resultType="com.auto.myte.entity.Permission">
+		SELECT * from permission;
+	</select>
+
+	<select id="findByAdminUserId" parameterType="int"
+		resultType="com.auto.myte.entity.Permission">
+		select p.*
+		from User u
+		LEFT JOIN role_user sru on u.eid= sru.eid
+		LEFT JOIN Role r on sru.rid = r.rid
+		LEFT JOIN permission_role spr on spr.rid = r.rid
+		LEFT JOIN permission p on p.pid =spr.pid
+		where u.eid=#{eid}
+	</select>
+
+</mapper>
